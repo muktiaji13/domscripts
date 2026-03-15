@@ -97,8 +97,9 @@ function writeOutput(js, outputPath) {
 // ── Open browser cross-platform ───────────────────────────────────
 function openBrowser(url) {
   const platform = process.platform;
-  const isAndroid = process.env.ANDROID_DATA || process.env.TERMUX_VERSION ||
-                    fs.existsSync("/data/data/com.termux");
+  const isAndroid = !!(process.env.ANDROID_DATA || process.env.TERMUX_VERSION ||
+    process.env.PREFIX?.includes("termux") ||
+    (() => { try { return fs.existsSync("/data/data/com.termux"); } catch { return false; } })());
   try {
     if(isAndroid) {
       // Termux: use termux-open-url or xdg-open
@@ -507,9 +508,12 @@ function cmdCompile(args, flags) {
 // dsc info — show system and compiler info
 function cmdInfo() {
   const platform = process.platform;
-  const isAndroid = process.env.TERMUX_VERSION || fs.existsSync("/data/data/com.termux");
-  const isWSL  = fs.existsSync("/proc/version") &&
-                 fs.readFileSync("/proc/version","utf8").toLowerCase().includes("microsoft");
+  const isAndroid = !!(process.env.TERMUX_VERSION || process.env.PREFIX?.includes("termux") ||
+    (() => { try { return fs.existsSync("/data/data/com.termux"); } catch { return false; } })());
+  const isWSL = !isAndroid && (() => {
+    try { return fs.existsSync("/proc/version") && fs.readFileSync("/proc/version","utf8").toLowerCase().includes("microsoft"); }
+    catch { return false; }
+  })();
 
   console.log(`\n${p(C.bold+C.orange,"  DomScript")} ${p(C.white,"v"+VERSION)}\n`);
   console.log(`  ${p(C.gray,"Platform:")}  ${platform}${isAndroid?" (Termux/Android)":isWSL?" (WSL)":""}`);
@@ -653,3 +657,4 @@ switch(cmd) {
       die(`Perintah tidak dikenal: '${cmd}'\nJalankan ${p(C.cyan,"dsc --help")} untuk bantuan.`);
     }
 }
+

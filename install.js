@@ -17,10 +17,15 @@ const { execSync } = require("child_process");
 const VERSION    = "3.0.0";
 const DSC_BIN    = path.resolve(__dirname, "bin", "dsc.js");
 const PLATFORM   = process.platform;
-const isAndroid  = process.env.TERMUX_VERSION || fs.existsSync("/data/data/com.termux");
+const isAndroid  = !!(process.env.TERMUX_VERSION || process.env.PREFIX?.includes("termux") ||
+                   (() => { try { return fs.existsSync("/data/data/com.termux"); } catch { return false; } })());
 const isWindows  = PLATFORM === "win32";
-const isWSL      = !isWindows && fs.existsSync("/proc/version") &&
-                   fs.readFileSync("/proc/version","utf8").toLowerCase().includes("microsoft");
+const isWSL      = !isWindows && !isAndroid && (() => {
+  try {
+    return fs.existsSync("/proc/version") &&
+           fs.readFileSync("/proc/version", "utf8").toLowerCase().includes("microsoft");
+  } catch { return false; }
+})();
 
 const C = {
   bold:"\x1b[1m", reset:"\x1b[0m",
@@ -201,3 +206,4 @@ function printManualInstructions() {
   ${p(C.cyan,`chmod +x ${DSC_BIN}`)}
 `);
 }
+

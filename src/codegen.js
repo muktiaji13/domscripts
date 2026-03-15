@@ -30,6 +30,28 @@ const __ds = {
   query:(sel,root)=>(root||document).querySelector(sel),
   queryAll:(sel,root)=>Array.from((root||document).querySelectorAll(sel)),
 };
+// ── Built-in functions ──
+const len    = (v) => Array.isArray(v) ? v.length : String(v).length;
+const str    = (v) => String(v);
+const num    = (v) => Number(v);
+const bool   = (v) => Boolean(v);
+const floor  = (v) => Math.floor(v);
+const ceil   = (v) => Math.ceil(v);
+const round  = (v) => Math.round(v);
+const abs    = (v) => Math.abs(v);
+const sqrt   = (v) => Math.sqrt(v);
+const pow    = (a,b) => Math.pow(a,b);
+const max    = (...a) => Math.max(...a);
+const min    = (...a) => Math.min(...a);
+const random = () => Math.random();
+const range  = (a,b) => { const r=[]; for(let i=a;i<b;i++)r.push(i); return r; };
+const keys   = (o) => Object.keys(o);
+const values = (o) => Object.values(o);
+const entries= (o) => Object.entries(o);
+const parse_int  = (s,r) => parseInt(s,r||10);
+const parse_float= (s) => parseFloat(s);
+const is_nan = (v) => isNaN(v);
+const type_of= (v) => typeof v;
 `.trim();
 
 class CodeGen {
@@ -419,3 +441,4 @@ class CodeGen {
 }
 
 module.exports = { CodeGen, RUNTIME_SRC };
+
