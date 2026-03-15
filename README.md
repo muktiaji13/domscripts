@@ -419,4 +419,4 @@ console.log(ast.body[0]); // { k: "VarDecl", name: "x", ... }
 
 ## Lisensi
 
-MIT — bebas dipakai, dimodifikasi, dan didistribusikan.
+MIT
