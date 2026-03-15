@@ -1,0 +1,3 @@
+// src/main.ds — {{PROJECT_NAME}} (API Template)
+import { ApiApp } from "./app"
+mount ApiApp() to "#app"

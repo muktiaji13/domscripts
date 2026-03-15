@@ -1,0 +1,7 @@
+// src/main.ds — {{PROJECT_NAME}}
+// Entry point utama
+
+import { App } from "./app"
+
+// Mount aplikasi ke #app
+mount App() to "#app"

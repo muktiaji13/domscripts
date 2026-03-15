@@ -1,0 +1,20 @@
+// src/main.ds — {{PROJECT_NAME}}
+// Template minimal — satu file
+
+create "div" as app
+setStyle app, "font-family", "system-ui, sans-serif"
+setStyle app, "padding",     "40px"
+setStyle app, "max-width",   "600px"
+setStyle app, "margin",      "0 auto"
+
+create "h1" as judul
+setText  judul, "{{PROJECT_NAME}}"
+setStyle judul, "color", "#1e293b"
+append judul to app
+
+create "p" as isi
+setText  isi, "Mulai menulis kode DomScript di sini."
+setStyle isi, "color", "#64748b"
+append isi to app
+
+mount app to "#app"

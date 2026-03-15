@@ -1,0 +1,89 @@
+// src/app.ds — API template dengan fetch
+
+let BASE_URL = "https://jsonplaceholder.typicode.com"
+
+export func ApiApp() {
+  create "div" as root
+  setStyle root, "font-family","system-ui,sans-serif"
+  setStyle root, "max-width",  "600px"
+  setStyle root, "margin",     "40px auto"
+  setStyle root, "padding",    "0 20px"
+
+  create "h1" as h
+  setText  h, "{{PROJECT_NAME}}"
+  setStyle h, "color",         "#1e293b"
+  setStyle h, "margin-bottom", "24px"
+  append h to root
+
+  // Status + List container
+  create "div" as status
+  setText  status, "Klik tombol untuk memuat data..."
+  setStyle status, "color",     "#64748b"
+  setStyle status, "font-size", "14px"
+  append status to root
+
+  create "div" as list
+  setStyle list, "margin-top", "16px"
+  append list to root
+
+  create "button" as btn
+  setText  btn, "Muat Data dari API"
+  setStyle btn, "background",    "#3b82f6"
+  setStyle btn, "color",         "white"
+  setStyle btn, "border",        "none"
+  setStyle btn, "border-radius", "8px"
+  setStyle btn, "padding",       "10px 20px"
+  setStyle btn, "cursor",        "pointer"
+  setStyle btn, "font-size",     "14px"
+  setStyle btn, "margin-top",    "16px"
+  append btn to root
+
+  async func muatData() {
+    setText  status, "⏳ Memuat..."
+    setStyle status, "color", "#3b82f6"
+    setStyle btn, "opacity", "0.6"
+    list.innerHTML = ""
+
+    try {
+      let res   = await fetch(BASE_URL + "/posts?_limit=5")
+      let posts = await res.json()
+
+      setText  status, "✅ " + len(posts) + " data dimuat"
+      setStyle status, "color", "#16a34a"
+
+      for (const p of posts) {
+        create "div" as kartu
+        setStyle kartu, "background",    "#f8fafc"
+        setStyle kartu, "border",        "1px solid #e2e8f0"
+        setStyle kartu, "border-radius", "8px"
+        setStyle kartu, "padding",       "14px"
+        setStyle kartu, "margin-bottom", "10px"
+
+        create "div" as tJudul
+        setText  tJudul, p.title
+        setStyle tJudul, "font-weight", "600"
+        setStyle tJudul, "color",       "#1e293b"
+        setStyle tJudul, "margin-bottom","4px"
+        append tJudul to kartu
+
+        create "div" as tIsi
+        setText  tIsi, p.body
+        setStyle tIsi, "color",     "#64748b"
+        setStyle tIsi, "font-size", "13px"
+        setStyle tIsi, "line-height","1.5"
+        append tIsi to kartu
+
+        append kartu to list
+      }
+    } catch (e) {
+      setText  status, "❌ Error: " + e.message
+      setStyle status, "color", "#dc2626"
+    }
+
+    setStyle btn, "opacity", "1"
+  }
+
+  on btn, "click", (e) => { muatData() }
+
+  return root
+}

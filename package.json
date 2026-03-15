@@ -1,0 +1,20 @@
+{
+  "name": "domscript",
+  "version": "3.0.0",
+  "description": "DomScript — a frontend language that compiles to JavaScript. Write .ds files, run anywhere.",
+  "main": "src/index.js",
+  "bin": {
+    "dsc":        "./bin/dsc.js",
+    "domscript":  "./bin/dsc.js"
+  },
+  "scripts": {
+    "test": "node test/run.js",
+    "build-self": "node bin/dsc.js examples/app/src/main.ds --bundle -o examples/app/dist/bundle.js"
+  },
+  "keywords": ["compiler", "transpiler", "frontend", "dom", "language", "dsl"],
+  "author": "DomScript",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

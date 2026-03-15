@@ -1,0 +1,56 @@
+// src/app.ds — Komponen utama
+
+export func App() {
+  create "div" as root
+  setStyle root, "display",      "flex"
+  setStyle root, "flex-direction","column"
+  setStyle root, "align-items",  "center"
+  setStyle root, "justify-content","center"
+  setStyle root, "min-height",   "100vh"
+  setStyle root, "background",   "#f8fafc"
+  setStyle root, "font-family",  "system-ui, sans-serif"
+
+  create "div" as card
+  setStyle card, "background",    "white"
+  setStyle card, "border-radius", "12px"
+  setStyle card, "padding",       "40px"
+  setStyle card, "box-shadow",    "0 4px 24px rgba(0,0,0,0.08)"
+  setStyle card, "text-align",    "center"
+  setStyle card, "max-width",     "420px"
+  setStyle card, "width",         "90%"
+
+  create "h1" as title
+  setText  title, "{{PROJECT_NAME}}"
+  setStyle title, "font-size",    "28px"
+  setStyle title, "color",        "#1e293b"
+  setStyle title, "margin-bottom","8px"
+  append title to card
+
+  create "p" as sub
+  setText  sub, "Dibuat dengan DomScript v3"
+  setStyle sub, "color",          "#94a3b8"
+  setStyle sub, "font-size",      "14px"
+  setStyle sub, "margin-bottom",  "28px"
+  append sub to card
+
+  create "button" as btn
+  setText  btn, "Mulai"
+  setStyle btn, "background",    "#3b82f6"
+  setStyle btn, "color",         "white"
+  setStyle btn, "border",        "none"
+  setStyle btn, "border-radius", "8px"
+  setStyle btn, "padding",       "12px 28px"
+  setStyle btn, "font-size",     "16px"
+  setStyle btn, "cursor",        "pointer"
+  setStyle btn, "font-family",   "inherit"
+  append btn to card
+
+  let count = 0
+  on btn, "click", (e) => {
+    count = count + 1
+    setText btn, "Diklik " + count + " kali"
+  }
+
+  append card to root
+  return root
+}
