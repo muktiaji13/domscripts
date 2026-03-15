@@ -1,20 +1,42 @@
 {
-  "name": "domscript",
+  "name": "muk-domscript",
   "version": "3.0.0",
-  "description": "DomScript — a frontend language that compiles to JavaScript. Write .ds files, run anywhere.",
+  "description": "DomScript — bahasa frontend yang dikompilasi ke JavaScript. Tulis .ds files, jalankan di browser.",
   "main": "src/index.js",
   "bin": {
-    "dsc":        "./bin/dsc.js",
-    "domscript":  "./bin/dsc.js"
+    "dsc":       "./bin/dsc.js",
+    "domscript": "./bin/dsc.js",
+    "muk-dsc":   "./bin/dsc.js"
   },
   "scripts": {
-    "test": "node test/run.js",
-    "build-self": "node bin/dsc.js examples/app/src/main.ds --bundle -o examples/app/dist/bundle.js"
+    "test": "node test/run.js"
   },
-  "keywords": ["compiler", "transpiler", "frontend", "dom", "language", "dsl"],
-  "author": "DomScript",
+  "keywords": [
+    "compiler", "transpiler", "frontend", "dom",
+    "language", "dsl", "domscript", "muk-domscript",
+    "javascript", "browser"
+  ],
+  "author": "muk-domscript",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/muktiaji13/domscripts"
+  },
+  "homepage": "https://github.com/muktiaji13/domscripts#readme",
+  "bugs": {
+    "url": "https://github.com/muktiaji13/domscripts/issues"
+  },
   "engines": {
     "node": ">=14.0.0"
-  }
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "templates/",
+    "test/",
+    "README.md",
+    "CHANGELOG.md",
+    "install.js"
+  ]
 }
+
